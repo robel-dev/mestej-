@@ -3,8 +3,11 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { content, languages } from '@/lib/content';
+import { useAuth } from '@/contexts/AuthContext';
+import { useCart } from '@/contexts/CartContext';
+import CartSidebar from './CartSidebar';
 
 interface NavigationProps {
   language: 'en' | 'sv';
@@ -14,8 +17,14 @@ interface NavigationProps {
 export default function Navigation({ language, onLanguageChange }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showCart, setShowCart] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, profile, signOut } = useAuth();
+  const { getTotalItems } = useCart();
   const siteContent = content[language];
+  const cartItemCount = getTotalItems();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,29 +35,48 @@ export default function Navigation({ language, onLanguageChange }: NavigationPro
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menuItems = [
-    { label: siteContent.nav.about, href: '/about' },
-    { label: siteContent.nav.history, href: '/history' },
-    { label: siteContent.nav.wines, href: '/wines' },
-    { label: siteContent.nav.contact, href: '/contact' },
-    { label: siteContent.nav.login, href: '/login' },
-    { label: siteContent.nav.ordering, href: '/ordering' },
-    { label: siteContent.nav.webshop, href: '/webshop' },
+  const handleLogout = async () => {
+    await signOut();
+    router.push(`/${language}`);
+    setShowUserMenu(false);
+  };
+
+  const baseMenuItems = [
+    { label: siteContent.nav.about, href: `/${language}/about` },
+    { label: siteContent.nav.history, href: `/${language}/history` },
+    { label: siteContent.nav.wines, href: `/${language}/wines` },
+    { label: siteContent.nav.webshop, href: `/${language}/webshop` },
+    { label: siteContent.nav.contact, href: `/${language}/contact` },
   ];
 
+  // Add login/ordering based on auth status
+  const menuItems = user
+    ? [
+        ...baseMenuItems,
+        { label: siteContent.nav.ordering, href: `/${language}/ordering` },
+      ]
+    : [
+        ...baseMenuItems,
+        { label: siteContent.nav.login, href: `/${language}/login` },
+        { label: siteContent.nav.ordering, href: `/${language}/ordering` },
+      ];
+
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled ? 'glass border-b border-gold/20' : 'bg-transparent'
-      }`}
-    >
+    <>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled 
+            ? 'glass border-b border-gold/20' 
+            : 'bg-black/70 backdrop-blur-lg border-b border-gold/20'
+        }`}
+      >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
+          <Link href={`/${language}`} className="flex items-center space-x-3">
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.8 }}
@@ -84,8 +112,98 @@ export default function Navigation({ language, onLanguageChange }: NavigationPro
             ))}
           </div>
 
-          {/* Language Switcher & Mobile Menu Button */}
+          {/* Language Switcher, User Menu, Cart & Mobile Menu Button */}
           <div className="flex items-center space-x-4">
+            {/* Cart Icon - Only show for authenticated users */}
+            {user && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+                className="relative"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowCart(true)}
+                  className="relative p-2 rounded-lg glass border border-gold/30 text-white hover:text-gold transition-colors duration-300"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  {cartItemCount > 0 && (
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center"
+                    >
+                      {cartItemCount > 9 ? '9+' : cartItemCount}
+                    </motion.span>
+                  )}
+                </motion.button>
+              </motion.div>
+            )}
+
+            {/* User Menu (Desktop) */}
+            {user && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.5 }}
+                className="hidden lg:block relative"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="flex items-center space-x-2 px-3 py-2 rounded-lg glass border border-gold/30 text-sm font-medium text-white hover:text-gold transition-colors duration-300"
+                >
+                  <span className="text-gold">👤</span>
+                  <span className="max-w-[120px] truncate">{profile?.email || user.email}</span>
+                  <svg
+                    className={`w-4 h-4 transition-transform ${showUserMenu ? 'rotate-180' : ''}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </motion.button>
+
+                <AnimatePresence>
+                  {showUserMenu && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="absolute right-0 mt-2 w-48 rounded-lg glass border border-gold/30 overflow-hidden"
+                    >
+                      <div className="py-2">
+                        <div className="px-4 py-2 text-sm text-white/70 border-b border-gold/20">
+                          {profile?.email || user.email}
+                        </div>
+                        {profile?.status === 'approved' && (
+                          <Link
+                            href={`/${language}/orders`}
+                            onClick={() => setShowUserMenu(false)}
+                            className="block px-4 py-2 text-sm text-white hover:bg-gold/20 transition-colors"
+                          >
+                            Orders
+                          </Link>
+                        )}
+                        <button
+                          onClick={handleLogout}
+                          className="w-full text-left px-4 py-2 text-sm text-white hover:bg-red-500/20 transition-colors"
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )}
+
             {/* Language Switcher */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -160,11 +278,48 @@ export default function Navigation({ language, onLanguageChange }: NavigationPro
                     </Link>
                   </motion.div>
                 ))}
+                
+                {/* Mobile User Menu */}
+                {user && (
+                  <>
+                    <div className="border-t border-gold/20 pt-4 mt-4">
+                      <div className="px-2 py-2 text-sm text-white/70">
+                        {profile?.email || user.email}
+                      </div>
+                      {profile?.status === 'approved' && (
+                        <Link
+                          href={`/${language}/orders`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="block py-2 text-base font-medium text-white hover:text-gold transition-colors duration-300"
+                        >
+                          Orders
+                        </Link>
+                      )}
+                      <button
+                        onClick={() => {
+                          handleLogout();
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className="w-full text-left py-2 text-base font-medium text-red-400 hover:text-red-300 transition-colors duration-300"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
     </motion.nav>
+
+    {/* Cart Sidebar */}
+    <CartSidebar
+      isOpen={showCart}
+      onClose={() => setShowCart(false)}
+      locale={language}
+    />
+  </>
   );
 }

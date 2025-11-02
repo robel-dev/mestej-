@@ -62,6 +62,48 @@ export interface SiteContent {
     deny: string;
     error: string;
   };
+  auth: {
+    login: {
+      title: string;
+      subtitle: string;
+      email: string;
+      password: string;
+      submit: string;
+      noAccount: string;
+      signUp: string;
+      forgotPassword: string;
+      errors: {
+        invalidCredentials: string;
+        generic: string;
+      };
+      success: string;
+    };
+    signup: {
+      title: string;
+      subtitle: string;
+      email: string;
+      password: string;
+      confirmPassword: string;
+      submit: string;
+      hasAccount: string;
+      signIn: string;
+      errors: {
+        passwordMismatch: string;
+        weakPassword: string;
+        invalidEmail: string;
+        emailExists: string;
+        generic: string;
+      };
+      success: string;
+      pendingApproval: string;
+    };
+    status: {
+      pending: string;
+      approved: string;
+      rejected: string;
+      blocked: string;
+    };
+  };
 }
 
 export interface AgeGateProps {

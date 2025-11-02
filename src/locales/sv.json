@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "about": "Om Oss",
+    "history": "Historia",
+    "wines": "Viner & Sprit",
+    "contact": "Kontakt",
+    "login": "Logga In",
+    "ordering": "Beställning",
+    "webshop": "Webshop"
+  },
+  "hero": {
+    "title": "Mestej Vingård",
+    "subtitle": "Tillverkar honung-, havtorn- och blåbärsviner med tradition och omsorg.",
+    "cta": "Upptäck Våra Viner"
+  },
+  "about": {
+    "title": "Om Mestej",
+    "content": "Mestej blandar lokal tradition och modernt hantverk inom vinframställning. Vår passion ligger i att skapa exceptionella mjöder och fruktviner som hedrar både arv och innovation."
+  },
+  "wines": {
+    "title": "Vår Premiumkollektion",
+    "subtitle": "Upptäck våra handgjorda honung-, havtorn- och blåbärsviner"
+  },
+  "contact": {
+    "title": "Kontakta Oss",
+    "form": {
+      "name": "Ditt Namn",
+      "email": "E-postadress",
+      "message": "Ditt Meddelande",
+      "submit": "Skicka Meddelande"
+    }
+  },
+  "ageGate": {
+    "title": "Åldersverifiering Krävs",
+    "message": "Vänligen bekräfta att du är myndig för att komma in.",
+    "confirm": "Ja, jag är myndig",
+    "deny": "Nej",
+    "error": "Tyvärr, du måste vara myndig för att komma in."
+  },
+  "auth": {
+    "login": {
+      "title": "Tillståndshållare Åtkomst",
+      "subtitle": "Begränsad åtkomst endast för tillståndshållare.",
+      "email": "E-postadress",
+      "password": "Lösenord",
+      "submit": "Logga In",
+      "noAccount": "Har du inget konto?",
+      "signUp": "Registrera Dig",
+      "forgotPassword": "Glömt lösenord?",
+      "errors": {
+        "invalidCredentials": "Ogiltig e-post eller lösenord.",
+        "generic": "Ett fel uppstod. Försök igen."
+      },
+      "success": "Inloggning lyckades! Omdirigerar..."
+    },
+    "signup": {
+      "title": "Skapa Konto",
+      "subtitle": "Registrera dig för att beställa Mestej-viner.",
+      "email": "E-postadress",
+      "password": "Lösenord",
+      "confirmPassword": "Bekräfta Lösenord",
+      "submit": "Registrera",
+      "hasAccount": "Har du redan ett konto?",
+      "signIn": "Logga In",
+      "errors": {
+        "passwordMismatch": "Lösenorden matchar inte.",
+        "weakPassword": "Lösenordet måste vara minst 6 tecken.",
+        "invalidEmail": "Vänligen ange en giltig e-postadress.",
+        "emailExists": "Ett konto med denna e-post finns redan.",
+        "generic": "Ett fel uppstod. Försök igen."
+      },
+      "success": "Konto skapat! Vänligen kontrollera din e-post för att verifiera ditt konto.",
+      "pendingApproval": "Ditt konto väntar på godkännande. Du kommer att meddelas när det är godkänt."
+    },
+    "status": {
+      "pending": "Ditt konto väntar på godkännande. Du kommer att meddelas när det är godkänt.",
+      "approved": "Ditt konto är godkänt. Du kan nu beställa.",
+      "rejected": "Ditt konto har avvisats. Vänligen kontakta support.",
+      "blocked": "Ditt konto har blockerats."
+    }
+  }
+}
+

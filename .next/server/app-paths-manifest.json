@@ -1,7 +1,11 @@
 {
-  "/page": "app/page.js",
-  "/about/page": "app/about/page.js",
-  "/ordering/page": "app/ordering/page.js",
-  "/webshop/page": "app/webshop/page.js",
-  "/contact/page": "app/contact/page.js"
+  "/[locale]/page": "app/[locale]/page.js",
+  "/[locale]/ordering/page": "app/[locale]/ordering/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/products/page": "app/admin/products/page.js",
+  "/admin/orders/page": "app/admin/orders/page.js",
+  "/admin/users/page": "app/admin/users/page.js",
+  "/admin/products/new/page": "app/admin/products/new/page.js",
+  "/admin/login/page": "app/admin/login/page.js",
+  "/[locale]/login/page": "app/[locale]/login/page.js"
 }

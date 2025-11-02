@@ -10,7 +10,19 @@ interface HeroSectionProps {
 
 export default function HeroSection({ language }: HeroSectionProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [particlePositions, setParticlePositions] = useState<Array<{ left: number; top: number }>>([]);
+  const [isMounted, setIsMounted] = useState(false);
   const siteContent = content[language];
+
+  useEffect(() => {
+    setIsMounted(true);
+    // Generate particle positions only on client
+    const positions = Array.from({ length: 20 }, () => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+    }));
+    setParticlePositions(positions);
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -61,28 +73,30 @@ export default function HeroSection({ language }: HeroSectionProps) {
       </motion.div>
 
       {/* Floating Particles */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-gold/20 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [-20, 20],
-              opacity: [0.2, 0.8, 0.2],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
+      {isMounted && (
+        <div className="absolute inset-0">
+          {particlePositions.map((position, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-gold/20 rounded-full"
+              style={{
+                left: `${position.left}%`,
+                top: `${position.top}%`,
+              }}
+              animate={{
+                y: [-20, 20],
+                opacity: [0.2, 0.8, 0.2],
+              }}
+              transition={{
+                duration: 3 + (i % 5) * 0.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: (i % 3) * 0.5,
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Main Content */}
       <motion.div

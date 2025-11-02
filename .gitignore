@@ -1,2 +1,16 @@
 node_modules
 /package-lock.json
+.env.local
+ADMIN_CHECKLIST.md
+ADMIN_DASHBOARD_SUMMARY.md
+AUTHENTICATION_DEBUG.md
+CHECKLIST.md
+DATABASE_PRD.txt
+DESIGN_SYSTEM.md
+env.example
+mestej-inventory.txt
+PHASE1_REVIEW.md
+PHASE1_TEST_RESULTS.md
+prd-instruct.txt
+/supabase/SETUP.md
+/supabase/README.md
