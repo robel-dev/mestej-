@@ -14,3 +14,6 @@ PHASE1_TEST_RESULTS.md
 prd-instruct.txt
 /supabase/SETUP.md
 /supabase/README.md
+.next
+.DS_Store
+*.tsbuildinfo

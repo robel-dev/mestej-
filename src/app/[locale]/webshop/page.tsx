@@ -1,12 +1,56 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useAuth } from '@/contexts/AuthContext';
+import { useAuthRedirect } from '@/hooks/useAuthRedirect';
+import { content } from '@/lib/content';
+import UserStatusMessage from '@/components/UserStatusMessage';
 
 interface WebshopPageProps {
   params: Promise<{ locale: string }>;
 }
 
 export default function WebshopPage({ params }: WebshopPageProps) {
+  const [locale, setLocale] = useState<'en' | 'sv'>('en');
+  const { profile } = useAuth();
+  const { user, authLoading } = useAuthRedirect(locale);
+
+  useEffect(() => {
+    params.then(({ locale: paramLocale }) => {
+      const validLocale = (paramLocale === 'sv') ? 'sv' : 'en';
+      setLocale(validLocale);
+    });
+  }, [params]);
+
+  const siteContent = content[locale];
+
+  // Show loading state
+  if (authLoading) {
+    return (
+      <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          className="w-16 h-16 rounded-full bg-gradient-to-br from-gold to-dark-gold flex items-center justify-center"
+        >
+          <span className="text-2xl">🍯</span>
+        </motion.div>
+      </div>
+    );
+  }
+
+  // Not authenticated - middleware should redirect, but show message just in case
+  if (!user) {
+    return null;
+  }
+
+  // Show status messages for non-approved users
+  if (profile && profile.status !== 'approved') {
+    return <UserStatusMessage status={profile.status} locale={locale} />;
+  }
+
+  // Approved - show webshop
   return (
     <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
@@ -21,6 +65,9 @@ export default function WebshopPage({ params }: WebshopPageProps) {
           </h1>
           <p className="text-xl text-white/80">
             Shop our exclusive merchandise collection.
+          </p>
+          <p className="text-white/60 mt-4">
+            Welcome, {profile?.email}!
           </p>
         </motion.div>
 
