@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAuthRedirect } from '@/hooks/useAuthRedirect';
 import { content } from '@/lib/content';
 import UserStatusMessage from '@/components/UserStatusMessage';
 
@@ -13,8 +13,8 @@ interface WebshopPageProps {
 
 export default function WebshopPage({ params }: WebshopPageProps) {
   const [locale, setLocale] = useState<'en' | 'sv'>('en');
-  const { user, profile, loading: authLoading } = useAuth();
-  const router = useRouter();
+  const { profile } = useAuth();
+  const { user, authLoading } = useAuthRedirect(locale);
 
   useEffect(() => {
     params.then(({ locale: paramLocale }) => {
@@ -22,14 +22,6 @@ export default function WebshopPage({ params }: WebshopPageProps) {
       setLocale(validLocale);
     });
   }, [params]);
-
-  useEffect(() => {
-    // Check authentication status
-    if (!authLoading && !user) {
-      console.log('❌ No user, redirecting to login');
-      router.push(`/${locale}/login`);
-    }
-  }, [user, authLoading, locale, router]);
 
   const siteContent = content[locale];
 
