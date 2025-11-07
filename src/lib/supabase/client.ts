@@ -1,6 +1,6 @@
 'use client';
 
-import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { createBrowserClient } from '@supabase/ssr'
 import type { Database } from './database.types'
 
 export function createClient() {
@@ -13,7 +13,7 @@ export function createClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  console.log('🔧 Creating Supabase client (simple mode) with:', { 
+  console.log('🔧 Creating Supabase browser client with:', { 
     url: url?.substring(0, 40) + '...', 
     hasKey: !!key,
     keyLength: key?.length 
@@ -24,17 +24,10 @@ export function createClient() {
     throw new Error('Missing Supabase environment variables. Please check your .env.local file.');
   }
 
-  // Use the simple client instead of SSR client
-  // This should work better in the browser and avoid timeout issues
-  const client = createSupabaseClient<Database>(url, key, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      storageKey: 'mestej-auth',
-    },
-  });
+  // Use the SSR browser client for proper cookie handling
+  const client = createBrowserClient<Database>(url, key);
   
-  console.log('✅ Supabase client created successfully (simple mode)');
+  console.log('✅ Supabase browser client created successfully');
   
   return client;
 }

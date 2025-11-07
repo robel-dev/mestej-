@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createServerClient } from '@supabase/ssr';
+import type { Database } from '@/lib/supabase/database.types';
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -14,51 +15,54 @@ export async function middleware(request: NextRequest) {
   const pathParts = pathname.split('/').filter(Boolean);
   const locale = pathParts[0] === 'en' || pathParts[0] === 'sv' ? pathParts[0] : 'en';
 
+  // Create a response object that we'll modify
+  let response = NextResponse.next({
+    request,
+  });
+
+  // Create Supabase client with proper cookie handling
+  const supabase = createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            request.cookies.set(name, value);
+          });
+          response = NextResponse.next({
+            request,
+          });
+          cookiesToSet.forEach(({ name, value, options }) => {
+            response.cookies.set(name, value, options);
+          });
+        },
+      },
+    }
+  );
+
+  // Get user session
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+
   // Admin route protection
   if (pathname.startsWith('/admin')) {
     // Allow admin login page
     if (pathname === '/admin/login') {
-      return NextResponse.next();
+      return response;
     }
 
-    // Check if user is authenticated and is admin
+    // Check if user is authenticated
+    if (userError || !user) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/admin/login';
+      return NextResponse.redirect(url);
+    }
+
+    // Check if user is admin
     try {
-      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-      
-      // Get session token from cookies
-      const authCookie = request.cookies.get('sb-oyadmezhfodmozpacsgq-auth-token');
-      
-      if (!authCookie) {
-        // No session, redirect to admin login
-        const url = request.nextUrl.clone();
-        url.pathname = '/admin/login';
-        return NextResponse.redirect(url);
-      }
-
-      // Parse the auth cookie (it's usually a JSON object)
-      let token = authCookie.value;
-      try {
-        const parsedCookie = JSON.parse(authCookie.value);
-        token = parsedCookie.access_token || parsedCookie;
-      } catch {
-        // If not JSON, use as-is
-      }
-
-      // Create Supabase client
-      const supabase = createClient(supabaseUrl, supabaseKey);
-
-      // Verify user with token
-      const { data: { user }, error } = await supabase.auth.getUser(token);
-      
-      if (error || !user) {
-        // Invalid session, redirect to admin login
-        const url = request.nextUrl.clone();
-        url.pathname = '/admin/login';
-        return NextResponse.redirect(url);
-      }
-
-      // Check if user is admin
       const { data: profile, error: profileError } = await supabase
         .from('users')
         .select('role')
@@ -73,10 +77,9 @@ export async function middleware(request: NextRequest) {
       }
 
       // User is admin, allow access
-      return NextResponse.next();
+      return response;
     } catch (error) {
       console.error('Admin middleware error:', error);
-      // On error, redirect to admin login
       const url = request.nextUrl.clone();
       url.pathname = '/admin/login';
       return NextResponse.redirect(url);
@@ -87,58 +90,22 @@ export async function middleware(request: NextRequest) {
   if (pathname.includes('/ordering') || pathname.includes('/webshop')) {
     // Allow login and signup pages
     if (pathname.includes('/login') || pathname.includes('/signup')) {
-      return NextResponse.next();
+      return response;
     }
 
-    try {
-      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-      
-      // Get session token from cookies
-      const authCookie = request.cookies.get('sb-oyadmezhfodmozpacsgq-auth-token');
-      
-      if (!authCookie) {
-        // No session, redirect to login
-        const url = request.nextUrl.clone();
-        url.pathname = `/${locale}/login`;
-        return NextResponse.redirect(url);
-      }
-
-      // Parse the auth cookie (it's usually a JSON object)
-      let token = authCookie.value;
-      try {
-        const parsedCookie = JSON.parse(authCookie.value);
-        token = parsedCookie.access_token || parsedCookie;
-      } catch {
-        // If not JSON, use as-is
-      }
-
-      // Create Supabase client
-      const supabase = createClient(supabaseUrl, supabaseKey);
-
-      // Verify user with token
-      const { data: { user }, error } = await supabase.auth.getUser(token);
-      
-      if (error || !user) {
-        // Invalid session, redirect to login
-        const url = request.nextUrl.clone();
-        url.pathname = `/${locale}/login`;
-        return NextResponse.redirect(url);
-      }
-
-      // User is authenticated, allow access
-      // Note: Additional status checks (approved/pending) are handled by the page components
-      return NextResponse.next();
-    } catch (error) {
-      console.error('Auth middleware error:', error);
-      // On error, redirect to login
+    // Check if user is authenticated
+    if (userError || !user) {
       const url = request.nextUrl.clone();
       url.pathname = `/${locale}/login`;
       return NextResponse.redirect(url);
     }
+
+    // User is authenticated, allow access
+    // Note: Additional status checks (approved/pending) are handled by the page components
+    return response;
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
