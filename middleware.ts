@@ -10,6 +10,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/en', request.url));
   }
 
+  // Extract locale from pathname
+  const pathParts = pathname.split('/').filter(Boolean);
+  const locale = pathParts[0] === 'en' || pathParts[0] === 'sv' ? pathParts[0] : 'en';
+
   // Admin route protection
   if (pathname.startsWith('/admin')) {
     // Allow admin login page
@@ -75,6 +79,61 @@ export async function middleware(request: NextRequest) {
       // On error, redirect to admin login
       const url = request.nextUrl.clone();
       url.pathname = '/admin/login';
+      return NextResponse.redirect(url);
+    }
+  }
+
+  // Ordering and Webshop route protection - require authentication
+  if (pathname.includes('/ordering') || pathname.includes('/webshop')) {
+    // Allow login and signup pages
+    if (pathname.includes('/login') || pathname.includes('/signup')) {
+      return NextResponse.next();
+    }
+
+    try {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+      
+      // Get session token from cookies
+      const authCookie = request.cookies.get('sb-oyadmezhfodmozpacsgq-auth-token');
+      
+      if (!authCookie) {
+        // No session, redirect to login
+        const url = request.nextUrl.clone();
+        url.pathname = `/${locale}/login`;
+        return NextResponse.redirect(url);
+      }
+
+      // Parse the auth cookie (it's usually a JSON object)
+      let token = authCookie.value;
+      try {
+        const parsedCookie = JSON.parse(authCookie.value);
+        token = parsedCookie.access_token || parsedCookie;
+      } catch {
+        // If not JSON, use as-is
+      }
+
+      // Create Supabase client
+      const supabase = createClient(supabaseUrl, supabaseKey);
+
+      // Verify user with token
+      const { data: { user }, error } = await supabase.auth.getUser(token);
+      
+      if (error || !user) {
+        // Invalid session, redirect to login
+        const url = request.nextUrl.clone();
+        url.pathname = `/${locale}/login`;
+        return NextResponse.redirect(url);
+      }
+
+      // User is authenticated, allow access
+      // Note: Additional status checks (approved/pending) are handled by the page components
+      return NextResponse.next();
+    } catch (error) {
+      console.error('Auth middleware error:', error);
+      // On error, redirect to login
+      const url = request.nextUrl.clone();
+      url.pathname = `/${locale}/login`;
       return NextResponse.redirect(url);
     }
   }
