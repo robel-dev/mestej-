@@ -1,5 +1,6 @@
 // Admin authentication utilities
 import { createClient } from './client';
+import type { Database } from './database.types';
 import type { User } from '@supabase/supabase-js';
 
 export interface AdminProfile {
@@ -15,6 +16,7 @@ export interface AdminProfile {
 export async function isAdmin(): Promise<boolean> {
   try {
     const supabase = createClient();
+    type UserRoleRow = Pick<Database['public']['Tables']['users']['Row'], 'role'>;
     
     // Get current user
     const { data: { user }, error } = await supabase.auth.getUser();
@@ -34,7 +36,7 @@ export async function isAdmin(): Promise<boolean> {
       return false;
     }
     
-    return profile.role === 'admin';
+    return (profile as UserRoleRow).role === 'admin';
   } catch (error) {
     console.error('Error checking admin status:', error);
     return false;
@@ -149,4 +151,3 @@ export async function adminSignOut(): Promise<void> {
     console.error('Admin sign out error:', error);
   }
 }
-
