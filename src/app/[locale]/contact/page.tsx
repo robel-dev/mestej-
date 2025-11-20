@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { content } from '@/lib/content';
+import { content } from '@/shared/constants/content';
 
 interface ContactPageProps {
   params: Promise<{ locale: string }>;
@@ -30,11 +30,11 @@ export default function ContactPage({ params }: ContactPageProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
-      setSubmitMessage('Thank you for your message! We\'ll get back to you soon.');
+      setSubmitMessage(siteContent.contact.form.successMessage);
       setFormData({ name: '', email: '', message: '' });
     }, 2000);
   };
@@ -60,7 +60,7 @@ export default function ContactPage({ params }: ContactPageProps) {
             <span className="golden-text">{siteContent.contact.title}</span>
           </h1>
           <p className="text-xl text-white/80 leading-relaxed max-w-3xl mx-auto">
-            We'd love to hear from you. Reach out with questions, feedback, or just to say hello.
+            {siteContent.contact.subtitle}
           </p>
         </motion.div>
 
@@ -74,9 +74,9 @@ export default function ContactPage({ params }: ContactPageProps) {
           >
             <div>
               <h2 className="text-2xl font-serif font-semibold golden-text mb-6">
-                Send us a Message
+                {siteContent.contact.form.title}
               </h2>
-              
+
               {submitMessage && (
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
@@ -100,7 +100,7 @@ export default function ContactPage({ params }: ContactPageProps) {
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 rounded-lg glass border border-gold/30 bg-black/50 text-white placeholder-white/50 focus:outline-none focus:border-gold transition-colors duration-300"
-                    placeholder="Your full name"
+                    placeholder={siteContent.contact.form.namePlaceholder}
                   />
                 </div>
 
@@ -116,7 +116,7 @@ export default function ContactPage({ params }: ContactPageProps) {
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 rounded-lg glass border border-gold/30 bg-black/50 text-white placeholder-white/50 focus:outline-none focus:border-gold transition-colors duration-300"
-                    placeholder="your.email@example.com"
+                    placeholder={siteContent.contact.form.emailPlaceholder}
                   />
                 </div>
 
@@ -132,7 +132,7 @@ export default function ContactPage({ params }: ContactPageProps) {
                     required
                     rows={6}
                     className="w-full px-4 py-3 rounded-lg glass border border-gold/30 bg-black/50 text-white placeholder-white/50 focus:outline-none focus:border-gold transition-colors duration-300 resize-none"
-                    placeholder="Tell us what's on your mind..."
+                    placeholder={siteContent.contact.form.messagePlaceholder}
                   />
                 </div>
 
@@ -150,7 +150,7 @@ export default function ContactPage({ params }: ContactPageProps) {
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                         className="w-5 h-5 border-2 border-black border-t-transparent rounded-full"
                       />
-                      <span>Sending...</span>
+                      <span>{siteContent.contact.form.sending}</span>
                     </div>
                   ) : (
                     siteContent.contact.form.submit
@@ -169,9 +169,9 @@ export default function ContactPage({ params }: ContactPageProps) {
           >
             <div>
               <h2 className="text-2xl font-serif font-semibold golden-text mb-6">
-                Get in Touch
+                {siteContent.contact.info.title}
               </h2>
-              
+
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gold to-warm-gold flex items-center justify-center flex-shrink-0">
@@ -180,8 +180,8 @@ export default function ContactPage({ params }: ContactPageProps) {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white mb-1">Email</h3>
-                    <p className="text-white/70">info@mestej.com</p>
+                    <h3 className="font-semibold text-white mb-1">{siteContent.contact.info.email}</h3>
+                    <p className="text-white/70">{siteContent.contact.info.emailAddress}</p>
                   </div>
                 </div>
 
@@ -193,8 +193,8 @@ export default function ContactPage({ params }: ContactPageProps) {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white mb-1">Location</h3>
-                    <p className="text-white/70">Sweden</p>
+                    <h3 className="font-semibold text-white mb-1">{siteContent.contact.info.location}</h3>
+                    <p className="text-white/70">{siteContent.contact.info.locationName}</p>
                   </div>
                 </div>
 
@@ -205,9 +205,9 @@ export default function ContactPage({ params }: ContactPageProps) {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white mb-1">Business Hours</h3>
-                    <p className="text-white/70">Mon - Fri: 9:00 AM - 6:00 PM</p>
-                    <p className="text-white/70">Sat - Sun: By appointment</p>
+                    <h3 className="font-semibold text-white mb-1">{siteContent.contact.info.businessHours}</h3>
+                    <p className="text-white/70">{siteContent.contact.info.weekdays}</p>
+                    <p className="text-white/70">{siteContent.contact.info.weekend}</p>
                   </div>
                 </div>
               </div>
@@ -217,7 +217,7 @@ export default function ContactPage({ params }: ContactPageProps) {
             <div className="h-64 rounded-2xl glass border border-gold/30 bg-gradient-to-br from-gold/10 to-warm-gold/5 flex items-center justify-center">
               <div className="text-center">
                 <div className="text-4xl mb-2">🗺️</div>
-                <p className="text-white/60">Interactive map coming soon</p>
+                <p className="text-white/60">{siteContent.contact.info.mapComingSoon}</p>
               </div>
             </div>
           </motion.div>

@@ -1,4 +1,4 @@
-import { AdminAuthProvider } from '@/contexts/AdminAuthContext';
+import { AdminAuthProvider } from '@/presentation/contexts/AdminAuthContext';
 
 export default function AdminLayout({
   children,

@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/presentation/contexts/AuthContext';
 import { motion } from 'framer-motion';
 
 export default function DebugAuthPage() {

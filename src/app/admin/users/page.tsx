@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useAdminAuth } from '@/contexts/AdminAuthContext';
-import AdminSidebar from '@/components/admin/AdminSidebar';
-import AdminHeader from '@/components/admin/AdminHeader';
+import { useAdminAuth } from '@/presentation/contexts/AdminAuthContext';
+import AdminSidebar from '@/presentation/components/admin/AdminSidebar';
+import AdminHeader from '@/presentation/components/admin/AdminHeader';
 import { 
   fetchAllUsers, 
   approveUser, 
@@ -12,7 +12,7 @@ import {
   blockUser, 
   unblockUser,
   type UserWithStats 
-} from '@/lib/supabase/adminUsers';
+} from '@/infrastructure/services/database/adminUsers';
 
 export default function AdminUsersPage() {
   const { user, profile, loading: authLoading } = useAdminAuth();

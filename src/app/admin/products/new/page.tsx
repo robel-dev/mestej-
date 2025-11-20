@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { useAdminAuth } from '@/contexts/AdminAuthContext';
-import AdminSidebar from '@/components/admin/AdminSidebar';
-import AdminHeader from '@/components/admin/AdminHeader';
-import { createProduct, fetchSuppliers } from '@/lib/supabase/adminProducts';
+import { useAdminAuth } from '@/presentation/contexts/AdminAuthContext';
+import AdminSidebar from '@/presentation/components/admin/AdminSidebar';
+import AdminHeader from '@/presentation/components/admin/AdminHeader';
+import { createProduct, fetchSuppliers } from '@/infrastructure/services/database/adminProducts';
 
 export default function NewProductPage() {
   const router = useRouter();

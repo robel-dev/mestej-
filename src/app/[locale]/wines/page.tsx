@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import ProductGallery from '@/components/ProductGallery';
+import ProductGallery from '@/presentation/components/features/products/ProductGallery';
 
 interface WinesPageProps {
   params: Promise<{ locale: string }>;

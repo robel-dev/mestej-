@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useAdminAuth } from '@/contexts/AdminAuthContext';
-import AdminSidebar from '@/components/admin/AdminSidebar';
-import AdminHeader from '@/components/admin/AdminHeader';
-import DashboardStats from '@/components/admin/DashboardStats';
+import { useAdminAuth } from '@/presentation/contexts/AdminAuthContext';
+import AdminSidebar from '@/presentation/components/admin/AdminSidebar';
+import AdminHeader from '@/presentation/components/admin/AdminHeader';
+import DashboardStats from '@/presentation/components/admin/DashboardStats';
 
 export default function AdminDashboardPage() {
   const { user, profile, loading } = useAdminAuth();

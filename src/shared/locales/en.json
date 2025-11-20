@@ -1,0 +1,297 @@
+{
+  "nav": {
+    "about": "About",
+    "history": "History",
+    "wines": "Wines & Liquors",
+    "contact": "Contact",
+    "login": "Login",
+    "ordering": "Ordering",
+    "webshop": "Webshop"
+  },
+  "hero": {
+    "title": "Mestej Winery",
+    "subtitle": "Crafting honey, buckthorn, and blueberry wines with tradition and care.",
+    "cta": "Discover Our Wines"
+  },
+  "about": {
+    "title": "About Mestej",
+    "welcome": {
+      "title": "Welcome to Mestej!",
+      "description": "Mestej Meadery stands at the intersection of ancient brewing traditions and modern craft innovation, creating exceptional meads that honor history while embracing contemporary palates."
+    },
+    "aboutUs": {
+      "title": "About us",
+      "paragraph1": "Mestej Meadery began as a vision to bring ancient brewing traditions in Eritrea/Ethiopia to a wider audience. Today Mestej Meadery offers a variety of mead alternatives with different flavors.",
+      "paragraph2": "The name Mestej is simply a combination of the words, 'mes' and 'tej', which translates as mead, in Tigrinya and Amharic languages."
+    },
+    "viewProducts": "Explore Our Meads"
+  },
+  "history": {
+    "title": "Our History",
+    "subtitle": "Rooted in heritage, Mestej carries forward centuries of mead-making tradition.",
+    "origins": {
+      "title": "Ancient Origins",
+      "paragraph1": "No one knows exactly when Mes/Tej was first produced, but the earliest dated mention of the beverage is found in Aksumite writings. Aksum (Axum) was a kingdom that primarily encompassed today's northern Ethiopia and Eritrea, but during its peak, it dominated both sides of the Red Sea. The language spoken in Aksum was the now-extinct language, Ge'ez. It is also from the Ge'ez language that the word for honey wine, 'mes,' originated.",
+      "paragraph2": "In the book, Inscriptions de l'Ethiopie Antique, the Dutch scholar A.J. Drewes translates Aksumite texts about Mes/Tej written in Ge'ez. The texts show that it was primarily royalty and nobility who consumed Mes/Tej; it was served together with injera and various meat stews—a practice that continues to this day!"
+    },
+    "european": {
+      "title": "European Accounts",
+      "description": "Later, during the 15th and 17th centuries, when several Europeans visited the region, they described Mes/Tej in a similar way to the translations from a thousand years earlier."
+    },
+    "legacy": {
+      "title": "A Timeless Tradition",
+      "paragraph1": "According to The Encyclopedia of World Environmental History, it is believed that Mes/Tej is among the oldest alcoholic beverages in the world.",
+      "paragraph2": "Today, the drink is primarily consumed during various holidays and gatherings in Eritrea/Ethiopia. There are also traditional houses where mes/tej is served; they are called tej bet."
+    }
+  },
+  "wines": {
+    "title": "Our Premium Collection",
+    "subtitle": "Discover our handcrafted honey, buckthorn, and blueberry wines",
+    "clickToLearnMore": "Click to learn more",
+    "availableAt": "Available at:",
+    "buyButton": "Buy at Systembolaget",
+    "fineDining": {
+      "title": "Find Us at Fine Dining Establishments",
+      "description": "Our premium wines are carefully selected by top restaurants who appreciate the artistry and quality of traditional Swedish mead-making.",
+      "viewLocations": "View All Locations"
+    }
+  },
+  "webshop": {
+    "title": "Mestej Webshop",
+    "subtitle": "Shop our exclusive merchandise collection.",
+    "comingSoon": "Coming Soon",
+    "products": {
+      "tshirt": "Mestej T-Shirt",
+      "wineGlass": "Golden Wine Glass"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you. Reach out with questions, feedback, or just to say hello.",
+    "form": {
+      "title": "Send us a Message",
+      "name": "Your Name",
+      "namePlaceholder": "Your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "your.email@example.com",
+      "message": "Your Message",
+      "messagePlaceholder": "Tell us what's on your mind...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "successMessage": "Thank you for your message! We'll get back to you soon."
+    },
+    "info": {
+      "title": "Get in Touch",
+      "email": "Email",
+      "emailAddress": "info@mestej.com",
+      "location": "Location",
+      "locationName": "Sweden",
+      "businessHours": "Business Hours",
+      "weekdays": "Mon - Fri: 9:00 AM - 6:00 PM",
+      "weekend": "Sat - Sun: By appointment",
+      "mapComingSoon": "Interactive map coming soon"
+    }
+  },
+  "home": {
+    "products": {
+      "title": "Our Wine Collection",
+      "subtitle": "Discover our handcrafted premium wines, each telling a story of tradition and excellence",
+      "availableAt": "Available at:",
+      "buyButton": "Buy at Systembolaget",
+      "autoPlaying": "Auto-playing",
+      "paused": "Paused"
+    },
+    "social": {
+      "title": "Follow Our Journey",
+      "subtitle": "Stay connected with us on social media for behind-the-scenes content, wine education, and exclusive releases",
+      "joinCommunity": "Join Our Community",
+      "followInstagram": "Follow on Instagram",
+      "followTiktok": "Follow on TikTok"
+    },
+    "video": {
+      "title": "Discover Our Craft",
+      "comingSoon": "Coming soon: Behind the scenes at Mestej Winery"
+    }
+  },
+  "ordering": {
+    "title": "Online Ordering",
+    "subtitle": "Our premium selection of wines and spirits",
+    "comingSoon": {
+      "title": "Coming Soon",
+      "message": "We are currently building a seamless online ordering experience for you. In the meantime, please browse our catalog or contact us directly for orders.",
+      "contactButton": "Contact Us"
+    }
+  },
+  "catalog": {
+    "title": "Product Catalog",
+    "subtitle": "Browse our complete collection of wines, liquors, and merchandise",
+    "filters": {
+      "all": "All",
+      "wine": "Wine",
+      "liquor": "Liquor",
+      "merchandise": "Merchandise"
+    },
+    "showing": "Showing {start}-{end} of {total} products",
+    "noProducts": "No products found for the selected filter.",
+    "priceOnRequest": "Price on request",
+    "abv": "ABV"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "browseProducts": "Browse Products",
+    "subtotal": "Subtotal:",
+    "proceedToCheckout": "Proceed to Checkout",
+    "clearCart": "Clear Cart",
+    "addToCart": "Add to Cart",
+    "remove": "Remove",
+    "total": "Total:",
+    "outOfStock": "Out of Stock"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred. Please try again.",
+    "currency": "SEK"
+  },
+  "ageGate": {
+    "title": "Age Verification Required",
+    "message": "Please confirm you are of legal drinking age to enter.",
+    "confirm": "Yes, I am of legal age",
+    "deny": "No",
+    "error": "Sorry, you must be of legal drinking age to enter."
+  },
+  "products": {
+    "title": "Our Meads",
+    "subtitle": "Discover our handcrafted collection of traditional and innovative meads",
+    "meads": [
+      {
+        "name": "Buckwheat",
+        "type": "buckwheat",
+        "description": "Buckwheat mead offers one of the most distinctive and polarizing flavor profiles in the mead world, known for its robust, earthy character that stands in stark contrast to lighter, floral honey varieties. Buckwheat mead represents the bold, unapologetic side of mead-making. It's not a beginner's mead, but rather a sophisticated choice for those seeking depth and complexity beyond typical honey wines. The intense earthy character can be challenging initially, but reveals remarkable complexity and nuance for those willing to explore its depths. This is a mead that commands attention and respect, offering a drinking experience that's both primitive and refined, simple yet profoundly complex.",
+        "optimalConditions": {
+          "title": "Optimal Conditions",
+          "serve": "Serve at cellar temperature (12-16°C/55-60°F)",
+          "glassware": "Use wide-bowled glasses to appreciate the complex aromas",
+          "servingSize": "Small servings recommended due to intensity"
+        },
+        "foodPairings": {
+          "title": "Food Pairings",
+          "subtitle": "Ideal Companions",
+          "pairings": [
+            "Strong cheeses (blue cheese, aged gouda)",
+            "Game meats and rich stews",
+            "Mushroom-based dishes",
+            "Dark chocolate and nut desserts",
+            "Smoked or cured meats"
+          ]
+        },
+        "image": "/images/products/buckwheat.jpg"
+      },
+      {
+        "name": "Mestej",
+        "type": "traditional",
+        "description": "Tej is a traditional Eritrean/Ethiopian honey wine that holds a special place in the local culture and cuisine. The careful balance of honey sweetness and gesho's herbal complexity creates a unique drinking experience that continues to evolve while maintaining its cultural significance. Whether enjoyed in a traditional Eritrean/Ethiopian home or discovered in international markets, tej offers a taste of Eritrean/Ethiopian heritage in every sip.",
+        "optimalConditions": {
+          "title": "Optimal Presentation",
+          "serve": "Slightly cooler than room temperature (12-14°C/54-57°F)",
+          "glassware": "Traditional berele or wine glasses",
+          "servingSize": "Standard serving"
+        },
+        "foodPairings": {
+          "title": "Food Pairings",
+          "subtitle": "Perfect Pairings",
+          "pairings": [
+            "Excellent with spicy Ethiopian dishes (balances heat well)",
+            "Complements grilled meats and vegetables",
+            "Pairs beautifully with hard cheeses and olives",
+            "Serves as a sophisticated aperitif"
+          ]
+        },
+        "image": "/images/products/mestej.jpg"
+      },
+      {
+        "name": "Buckthorn",
+        "type": "buckthorn",
+        "description": "Buckthorn mead with gesho presents a bold, complex flavor profile that challenges and delights the palate with its unique combination of tart, tropical, and herbal elements. This combination represents one of the more adventurous mead styles, where gesho's traditional earthy character meets sea buckthorn's vibrant modernity. The result is a beverage that's simultaneously challenging and refreshing, offering layers of complexity that reveal themselves with each sip. The gesho provides the necessary structural elements to tame sea buckthorn's wild nature, creating a harmonious balance between intensity and elegance.",
+        "optimalConditions": {
+          "title": "Optimal Conditions",
+          "serve": "Serve well chilled (8-10°C/46-50°F) to balance the intensity",
+          "glassware": "Use tulip-shaped glasses to concentrate the complex aromas",
+          "servingSize": "Consider as an aperitif to stimulate the palate"
+        },
+        "foodPairings": {
+          "title": "Food Pairings",
+          "subtitle": "Ideal Companions",
+          "pairings": [
+            "Excellent with rich, fatty foods (the acidity cuts through fat)",
+            "Complements Asian cuisine, particularly Thai and Vietnamese",
+            "Pairs beautifully with seafood, especially scallops and shrimp",
+            "Wonderful with creamy cheeses or spicy dishes"
+          ]
+        },
+        "image": "/images/products/buckthorn.jpg"
+      },
+      {
+        "name": "Blueberry",
+        "type": "blueberry",
+        "description": "Blueberry mead enhanced with Gesho (Rhamnus prinoides) offers a uniquely complex flavor profile that bridges African and Western traditions. This combination represents a fascinating fusion where North American berries meet traditional African brewing ingredients, creating a truly global mead experience that's both familiar and exotic. The gesho provides the structural backbone that elevates blueberry mead from a simple fruit honey wine to a complex, sophisticated beverage worthy of contemplation.",
+        "optimalConditions": {
+          "title": "Optimal Conditions",
+          "serve": "Serve slightly chilled (12-14°C/54-57°F)",
+          "glassware": "Use wine glasses to concentrate aromas",
+          "servingSize": "Allow to breathe for 10-15 minutes before serving"
+        },
+        "foodPairings": {
+          "title": "Food Pairings",
+          "subtitle": "Perfect Pairings",
+          "pairings": [
+            "Excellent with grilled meats and roasted vegetables",
+            "Complements strong cheeses (blue cheese, aged cheddar)",
+            "Pairs well with herb-infused dishes",
+            "Beautiful with dark chocolate desserts"
+          ]
+        },
+        "image": "/images/products/blueberry.jpg"
+      }
+    ]
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submitButton": "Sign In",
+      "signingIn": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign Up",
+      "errors": {
+        "invalidCredentials": "Invalid email or password.",
+        "generic": "An error occurred. Please try again."
+      }
+    },
+    "signup": {
+      "title": "Create Account",
+      "subtitle": "Sign up to start ordering",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "At least 6 characters",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter your password",
+      "submitButton": "Create Account",
+      "signingUp": "Creating account...",
+      "successButton": "Success!",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Login",
+      "errors": {
+        "passwordMismatch": "Passwords do not match.",
+        "passwordTooShort": "Password must be at least 6 characters.",
+        "generic": "An error occurred. Please try again."
+      },
+      "success": "Account created successfully! Redirecting to login..."
+    }
+  }
+}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { adminSignIn } from '@/lib/supabase/adminAuth';
+import { adminSignIn } from '@/infrastructure/services/database/adminAuth';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');

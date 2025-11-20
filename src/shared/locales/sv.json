@@ -1,0 +1,297 @@
+{
+  "nav": {
+    "about": "Om Oss",
+    "history": "Historia",
+    "wines": "Viner & Sprit",
+    "contact": "Kontakt",
+    "login": "Logga In",
+    "ordering": "Beställning",
+    "webshop": "Webshop"
+  },
+  "hero": {
+    "title": "Mestej Vingård",
+    "subtitle": "Tillverkar honung-, havtorn- och blåbärsviner med tradition och omsorg.",
+    "cta": "Upptäck Våra Viner"
+  },
+  "about": {
+    "title": "Om Mestej",
+    "welcome": {
+      "title": "Välkommen till Mestej!",
+      "description": "Mestej Meadery står i skärningspunkten mellan gamla bryggtraditioner och modern hantverksinnovation, och skapar exceptionella mjöder som hedrar historien samtidigt som de omfamnar moderna smaker."
+    },
+    "aboutUs": {
+      "title": "Om oss",
+      "paragraph1": "Mestej Meadery började som en vision att föra gamla bryggtraditioner från Eritrea/Etiopien till en bredare publik. Idag erbjuder Mestej Meadery en mängd olika mjödalternativ med olika smaker.",
+      "paragraph2": "Namnet Mestej är helt enkelt en kombination av orden 'mes' och 'tej', vilket översätts som mjöd, på tigrinya och amhariska språken."
+    },
+    "viewProducts": "Utforska Våra Mjöder"
+  },
+  "history": {
+    "title": "Vår Historia",
+    "subtitle": "Rotad i arv, Mestej för vidare århundraden av mjödtradition.",
+    "origins": {
+      "title": "Uråldriga Ursprung",
+      "paragraph1": "Ingen vet exakt när Mes/Tej först producerades, men den tidigaste daterade omnämnandet av drycken finns i aksumitiska skrifter. Aksum (Axum) var ett kungarike som främst omfattade dagens norra Etiopien och Eritrea, men under sin höjdpunkt dominerade det båda sidor av Röda havet. Språket som talades i Aksum var det nu utdöda språket Ge'ez. Det är också från Ge'ez-språket som ordet för honungsvin, 'mes,' har sitt ursprung.",
+      "paragraph2": "I boken Inscriptions de l'Ethiopie Antique översätter den holländske forskaren A.J. Drewes aksumitiska texter om Mes/Tej skrivna på Ge'ez. Texterna visar att det främst var kungahus och adel som konsumerade Mes/Tej; det serverades tillsammans med injera och olika köttstuvningar—en sed som fortsätter än idag!"
+    },
+    "european": {
+      "title": "Europeiska Beskrivningar",
+      "description": "Senare, under 1400- och 1600-talen, när flera européer besökte regionen, beskrev de Mes/Tej på liknande sätt som översättningarna från tusen år tidigare."
+    },
+    "legacy": {
+      "title": "En Tidlös Tradition",
+      "paragraph1": "Enligt The Encyclopedia of World Environmental History tros Mes/Tej vara bland de äldsta alkoholhaltiga dryckerna i världen.",
+      "paragraph2": "Idag konsumeras drycken främst under olika högtider och sammankomster i Eritrea/Etiopien. Det finns också traditionella hus där mes/tej serveras; de kallas tej bet."
+    }
+  },
+  "wines": {
+    "title": "Vår Premiumkollektion",
+    "subtitle": "Upptäck våra handgjorda honung-, havtorn- och blåbärsviner",
+    "clickToLearnMore": "Klicka för att lära dig mer",
+    "availableAt": "Finns på:",
+    "buyButton": "Köp på Systembolaget",
+    "fineDining": {
+      "title": "Hitta Oss på Fina Restauranger",
+      "description": "Våra premiumviner är noggrant utvalda av topprestauranger som uppskattar konstskickligheten och kvaliteten i traditionell svensk mjödtillverkning.",
+      "viewLocations": "Visa Alla Platser"
+    }
+  },
+  "webshop": {
+    "title": "Mestej Webshop",
+    "subtitle": "Handla vår exklusiva merchandise-kollektion.",
+    "comingSoon": "Kommer Snart",
+    "products": {
+      "tshirt": "Mestej T-shirt",
+      "wineGlass": "Gyllene Vinglas"
+    }
+  },
+  "contact": {
+    "title": "Kontakta Oss",
+    "subtitle": "Vi skulle älska att höra från dig. Hör av dig med frågor, feedback eller bara för att säga hej.",
+    "form": {
+      "title": "Skicka oss ett Meddelande",
+      "name": "Ditt Namn",
+      "namePlaceholder": "Ditt fullständiga namn",
+      "email": "E-postadress",
+      "emailPlaceholder": "din.epost@exempel.se",
+      "message": "Ditt Meddelande",
+      "messagePlaceholder": "Berätta vad du tänker på...",
+      "submit": "Skicka Meddelande",
+      "sending": "Skickar...",
+      "successMessage": "Tack för ditt meddelande! Vi återkommer till dig snart."
+    },
+    "info": {
+      "title": "Kom i Kontakt",
+      "email": "E-post",
+      "emailAddress": "info@mestej.com",
+      "location": "Plats",
+      "locationName": "Sverige",
+      "businessHours": "Öppettider",
+      "weekdays": "Mån - Fre: 09:00 - 18:00",
+      "weekend": "Lör - Sön: Efter bokning",
+      "mapComingSoon": "Interaktiv karta kommer snart"
+    }
+  },
+  "home": {
+    "products": {
+      "title": "Vår Vinkollektion",
+      "subtitle": "Upptäck våra handgjorda premiumviner, var och en berättar en historia om tradition och excellens",
+      "availableAt": "Finns på:",
+      "buyButton": "Köp på Systembolaget",
+      "autoPlaying": "Spelas automatiskt",
+      "paused": "Pausad"
+    },
+    "social": {
+      "title": "Följ Vår Resa",
+      "subtitle": "Håll kontakten med oss på sociala medier för bakom kulisserna-innehåll, vinutbildning och exklusiva släpp",
+      "joinCommunity": "Gå Med i Vår Gemenskap",
+      "followInstagram": "Följ på Instagram",
+      "followTiktok": "Följ på TikTok"
+    },
+    "video": {
+      "title": "Upptäck Vårt Hantverk",
+      "comingSoon": "Kommer snart: Bakom kulisserna på Mestej Vingård"
+    }
+  },
+  "ordering": {
+    "title": "Onlinebeställning",
+    "subtitle": "Vårt premiumutbud av viner och sprit",
+    "comingSoon": {
+      "title": "Kommer Snart",
+      "message": "Vi bygger för närvarande en sömlös onlinebeställningsupplevelse för dig. Under tiden kan du bläddra i vår katalog eller kontakta oss direkt för beställningar.",
+      "contactButton": "Kontakta Oss"
+    }
+  },
+  "catalog": {
+    "title": "Produktkatalog",
+    "subtitle": "Bläddra i vår kompletta samling av viner, sprit och merchandise",
+    "filters": {
+      "all": "Alla",
+      "wine": "Vin",
+      "liquor": "Sprit",
+      "merchandise": "Merchandise"
+    },
+    "showing": "Visar {start}-{end} av {total} produkter",
+    "noProducts": "Inga produkter hittades för det valda filtret.",
+    "priceOnRequest": "Pris på förfrågan",
+    "abv": "Alkoholhalt"
+  },
+  "cart": {
+    "title": "Kundvagn",
+    "empty": "Din kundvagn är tom",
+    "browseProducts": "Bläddra bland produkter",
+    "subtotal": "Delsumma:",
+    "proceedToCheckout": "Gå till kassan",
+    "clearCart": "Töm kundvagn",
+    "addToCart": "Lägg till i kundvagn",
+    "remove": "Ta bort",
+    "total": "Totalt:",
+    "outOfStock": "Slut i lager"
+  },
+  "common": {
+    "loading": "Laddar...",
+    "error": "Ett fel inträffade. Försök igen.",
+    "currency": "SEK"
+  },
+  "ageGate": {
+    "title": "Åldersverifiering Krävs",
+    "message": "Vänligen bekräfta att du är myndig för att komma in.",
+    "confirm": "Ja, jag är myndig",
+    "deny": "Nej",
+    "error": "Tyvärr, du måste vara myndig för att komma in."
+  },
+  "products": {
+    "title": "Våra Mjöder",
+    "subtitle": "Upptäck vår handgjorda samling av traditionella och innovativa mjöder",
+    "meads": [
+      {
+        "name": "Bovete",
+        "type": "buckwheat",
+        "description": "Bovetemjöd erbjuder en av de mest särpräglade och polariserande smakprofilerna i mjödvärlden, känd för sin robusta, jordnära karaktär som står i stark kontrast till lättare, blommiga honungsvarianter. Bovetemjöd representerar den djärva, oförskämda sidan av mjödtillverkning. Det är inte en nybörjarmjöd, utan snarare ett sofistikerat val för dem som söker djup och komplexitet bortom typiska honungsviner. Den intensiva jordnära karaktären kan vara utmanande i början, men avslöjar anmärkningsvärd komplexitet och nyans för dem som är villiga att utforska dess djup. Detta är en mjöd som kräver uppmärksamhet och respekt, och erbjuder en dryckesupplevelse som är både primitiv och raffinerad, enkel men djupt komplex.",
+        "optimalConditions": {
+          "title": "Optimala Förhållanden",
+          "serve": "Servera i källartemperatur (12-16°C/55-60°F)",
+          "glassware": "Använd vidskålade glas för att uppskatta de komplexa aromerna",
+          "servingSize": "Små portioner rekommenderas på grund av intensiteten"
+        },
+        "foodPairings": {
+          "title": "Matkombinationer",
+          "subtitle": "Idealiska Följeslagare",
+          "pairings": [
+            "Starka ostar (blåmögelost, lagrad gouda)",
+            "Viltkött och rika grytor",
+            "Svamprätter",
+            "Mörk choklad och nöt desserter",
+            "Rökt eller torkat kött"
+          ]
+        },
+        "image": "/images/products/buckwheat.jpg"
+      },
+      {
+        "name": "Mestej",
+        "type": "traditional",
+        "description": "Tej är ett traditionellt eritreiskt/etiopiskt honungsvin som har en särskild plats i den lokala kulturen och köket. Den noggranna balansen mellan honungssöt ma och geshos örtiga komplexitet skapar en unik dryckesupplevelse som fortsätter att utvecklas samtidigt som den bibehåller sin kulturella betydelse. Oavsett om det njuts i ett traditionellt eritreiskt/etiopiskt hem eller upptäcks på internationella marknader, erbjuder tej en smak av eritreiskt/etiopiskt arv i varje klunk.",
+        "optimalConditions": {
+          "title": "Optimal Presentation",
+          "serve": "Något svalare än rumstemperatur (12-14°C/54-57°F)",
+          "glassware": "Traditionell berele eller vinglas",
+          "servingSize": "Standardportion"
+        },
+        "foodPairings": {
+          "title": "Matkombinationer",
+          "subtitle": "Perfekta Kombinationer",
+          "pairings": [
+            "Utmärkt till kryddiga etiopiska rätter (balanserar värmen väl)",
+            "Kompletterar grillade kötträtter och grönsaker",
+            "Passar vackert med hårda ostar och oliver",
+            "Fungerar som en sofistikerad aperitif"
+          ]
+        },
+        "image": "/images/products/mestej.jpg"
+      },
+      {
+        "name": "Havtorn",
+        "type": "buckthorn",
+        "description": "Havtornsmjöd med gesho presenterar en djärv, komplex smakprofil som utmanar och gläder gommen med sin unika kombination av surt, tropiskt och örtiga element. Denna kombination representerar en av de mer äventyrliga mjödstilar na, där geshos traditionella jordnära karaktär möter havtornens levande modernitet. Resultatet är en dryck som samtidigt är utmanande och uppfriskande, och erbjuder lager av komplexitet som avslöjar sig med varje klunk. Gesho ger de nödvändiga strukturella elementen för att tämja havtornens vilda natur, vilket skapar en harmonisk balans mellan intensitet och elegans.",
+        "optimalConditions": {
+          "title": "Optimala Förhållanden",
+          "serve": "Servera väl kyld (8-10°C/46-50°F) för att balansera intensiteten",
+          "glassware": "Använd tulpanformade glas för att koncentrera de komplexa aromerna",
+          "servingSize": "Överväg som en aperitif för att stimulera gommen"
+        },
+        "foodPairings": {
+          "title": "Matkombinationer",
+          "subtitle": "Idealiska Följeslagare",
+          "pairings": [
+            "Utmärkt med rika, feta livsmedel (syran skär genom fettet)",
+            "Kompletterar asiatisk mat, särskilt thailändsk och vietnamesisk",
+            "Passar vackert med skaldjur, särskilt kammusslor och räkor",
+            "Underbart med krämiga ostar eller kryddiga rätter"
+          ]
+        },
+        "image": "/images/products/buckthorn.jpg"
+      },
+      {
+        "name": "Blåbär",
+        "type": "blueberry",
+        "description": "Blåbärsmjöd förbättrad med Gesho (Rhamnus prinoides) erbjuder en unikt komplex smakprofil som överbryggar afrikanska och västerländska traditioner. Denna kombination representerar en fascinerande fusion där nordamerikanska bär möter traditionella afrikanska bryggingredienser, vilket skapar en verkligen global mjödupplevelse som är både bekant och exotisk. Gesho ger den strukturella ryggraden som lyfter blåbärsmjöd från ett enkelt frukthonung svin till en komplex, sofistikerad dryck värdig kontemplation.",
+        "optimalConditions": {
+          "title": "Optimala Förhållanden",
+          "serve": "Servera något kyld (12-14°C/54-57°F)",
+          "glassware": "Använd vinglas för att koncentrera aromer",
+          "servingSize": "Låt andas i 10-15 minuter före servering"
+        },
+        "foodPairings": {
+          "title": "Matkombinationer",
+          "subtitle": "Perfekta Kombinationer",
+          "pairings": [
+            "Utmärkt med grillade kötträtter och rostade grönsaker",
+            "Kompletterar starka ostar (blåmögelost, lagrad cheddar)",
+            "Passar väl med örtingjutna rätter",
+            "Vackert med mörk chokladdesserter"
+          ]
+        },
+        "image": "/images/products/blueberry.jpg"
+      }
+    ]
+  },
+  "auth": {
+    "login": {
+      "title": "Välkommen Tillbaka",
+      "subtitle": "Logga in på ditt konto",
+      "emailLabel": "E-postadress",
+      "emailPlaceholder": "din@epost.se",
+      "passwordLabel": "Lösenord",
+      "passwordPlaceholder": "Ange ditt lösenord",
+      "submitButton": "Logga In",
+      "signingIn": "Loggar in...",
+      "noAccount": "Har du inget konto?",
+      "signupLink": "Registrera",
+      "errors": {
+        "invalidCredentials": "Ogiltig e-post eller lösenord.",
+        "generic": "Ett fel uppstod. Försök igen."
+      }
+    },
+    "signup": {
+      "title": "Skapa Konto",
+      "subtitle": "Registrera dig för att börja beställa",
+      "emailLabel": "E-postadress",
+      "emailPlaceholder": "din@epost.se",
+      "passwordLabel": "Lösenord",
+      "passwordPlaceholder": "Minst 6 tecken",
+      "confirmPasswordLabel": "Bekräfta Lösenord",
+      "confirmPasswordPlaceholder": "Ange lösenordet igen",
+      "submitButton": "Skapa Konto",
+      "signingUp": "Skapar konto...",
+      "successButton": "Klart!",
+      "hasAccount": "Har du redan ett konto?",
+      "loginLink": "Logga in",
+      "errors": {
+        "passwordMismatch": "Lösenorden matchar inte.",
+        "passwordTooShort": "Lösenordet måste vara minst 6 tecken.",
+        "generic": "Ett fel uppstod. Försök igen."
+      },
+      "success": "Konto skapat! Omdirigerar till inloggning..."
+    }
+  }
+}

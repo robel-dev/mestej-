@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { content } from '@/shared/constants/content';
 
 interface HistoryPageProps {
   params: Promise<{ locale: string }>;
@@ -17,6 +18,8 @@ export default function HistoryPage({ params }: HistoryPageProps) {
     });
   }, [params]);
 
+  const siteContent = content[language];
+
   return (
     <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
@@ -27,29 +30,67 @@ export default function HistoryPage({ params }: HistoryPageProps) {
           className="text-center mb-16"
         >
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold mb-6">
-            <span className="golden-text">Our History</span>
+            <span className="golden-text">{siteContent.history.title}</span>
           </h1>
           <p className="text-xl text-white/80 leading-relaxed">
-            Rooted in heritage, Mestej carries forward centuries of mead-making tradition.
+            {siteContent.history.subtitle}
           </p>
         </motion.div>
 
         <div className="space-y-16">
+          {/* Ancient Origins */}
           <motion.section
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center"
           >
             <h2 className="text-3xl font-serif font-semibold golden-text mb-8">
-              A Legacy of Craftsmanship
+              {siteContent.history.origins.title}
+            </h2>
+            <div className="space-y-6">
+              <p className="text-white/80 leading-relaxed text-lg">
+                {siteContent.history.origins.paragraph1}
+              </p>
+              <p className="text-white/80 leading-relaxed text-lg">
+                {siteContent.history.origins.paragraph2}
+              </p>
+            </div>
+          </motion.section>
+
+          {/* European Accounts */}
+          <motion.section
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <h2 className="text-3xl font-serif font-semibold golden-text mb-8">
+              {siteContent.history.european.title}
             </h2>
             <p className="text-white/80 leading-relaxed text-lg">
-              The art of mead-making has been part of Scandinavian culture for over a thousand years. 
-              At Mestej, we honor this ancient tradition while bringing modern innovation to create 
-              wines that capture the essence of our Nordic heritage.
+              {siteContent.history.european.description}
             </p>
+          </motion.section>
+
+          {/* Timeless Tradition */}
+          <motion.section
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <h2 className="text-3xl font-serif font-semibold golden-text mb-8">
+              {siteContent.history.legacy.title}
+            </h2>
+            <div className="space-y-6">
+              <p className="text-white/80 leading-relaxed text-lg">
+                {siteContent.history.legacy.paragraph1}
+              </p>
+              <p className="text-white/80 leading-relaxed text-lg">
+                {siteContent.history.legacy.paragraph2}
+              </p>
+            </div>
           </motion.section>
         </div>
       </div>

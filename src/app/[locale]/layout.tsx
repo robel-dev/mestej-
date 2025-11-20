@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Navigation from '@/components/Navigation';
-import AgeGate from '@/components/AgeGate';
-import { AuthProvider } from '@/contexts/AuthContext';
-import { CartProvider } from '@/contexts/CartContext';
+import Navigation from '@/presentation/components/common/Navigation';
+import AgeGate from '@/presentation/components/common/AgeGate';
+import { CartProvider } from '@/presentation/contexts/CartContext';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -29,7 +28,7 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
     try {
       // Check if user has already been age verified
       const ageVerified = localStorage.getItem('age-verified');
-      
+
       if (ageVerified === 'true') {
         setIsAgeVerified(true);
         setShowAgeGate(false);
@@ -37,7 +36,7 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
     } catch (error) {
       console.log('localStorage not available during SSR');
     }
-    
+
     setIsLoading(false);
   }, [params]);
 
@@ -75,75 +74,73 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
   }
 
   return (
-    <AuthProvider>
-      <CartProvider>
-        <div className="relative min-h-screen">
-          {/* Background Image */}
-          <div 
-            className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url('/assets/mestej.jpeg')`,
-              backgroundSize: '150%',
-              filter: 'brightness(0.3)',
-            }}
-          />
-          
-          {/* Navigation */}
-          {isAgeVerified && (
-            <Navigation 
-              language={locale}
-              onLanguageChange={handleLanguageChange}
-            />
-          )}
+    <CartProvider>
+      <div className="relative min-h-screen">
+        {/* Background Image */}
+        <div
+          className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/images/background-mestej.png')`,
+            backgroundSize: 'contain',
+            filter: 'brightness(0.5)',
+          }}
+        />
 
-          {/* Main Content */}
-          <main className="relative z-10">
-            <AnimatePresence mode="wait">
-              {isAgeVerified ? (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                  key="main-content"
-                >
-                  {children}
-                </motion.div>
-              ) : (
-                <div key="age-gate-placeholder" />
-              )}
-            </AnimatePresence>
-          </main>
-
-          {/* Age Gate */}
-          <AgeGate
-            isOpen={showAgeGate}
-            onConfirm={handleAgeConfirm}
-            onDeny={handleAgeDeny}
+        {/* Navigation */}
+        {isAgeVerified && (
+          <Navigation
             language={locale}
+            onLanguageChange={handleLanguageChange}
           />
+        )}
 
-          {/* Footer */}
-          <AnimatePresence>
-            {isAgeVerified && (
-              <motion.footer
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 50 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="relative z-10 mt-20 pb-8"
+        {/* Main Content */}
+        <main className="relative z-10">
+          <AnimatePresence mode="wait">
+            {isAgeVerified ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                key="main-content"
               >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center text-white/60 text-sm">
-                    <p>&copy; 2024 Mestej Winery. All rights reserved.</p>
-                  </div>
-                </div>
-              </motion.footer>
+                {children}
+              </motion.div>
+            ) : (
+              <div key="age-gate-placeholder" />
             )}
           </AnimatePresence>
-        </div>
-      </CartProvider>
-    </AuthProvider>
+        </main>
+
+        {/* Age Gate */}
+        <AgeGate
+          isOpen={showAgeGate}
+          onConfirm={handleAgeConfirm}
+          onDeny={handleAgeDeny}
+          language={locale}
+        />
+
+        {/* Footer */}
+        <AnimatePresence>
+          {isAgeVerified && (
+            <motion.footer
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="relative z-10 mt-20 pb-8"
+            >
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center text-white/60 text-sm">
+                  <p>&copy; 2024 Mestej Winery. All rights reserved.</p>
+                </div>
+              </div>
+            </motion.footer>
+          )}
+        </AnimatePresence>
+      </div>
+    </CartProvider>
   );
 }
 

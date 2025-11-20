@@ -1,150 +1,191 @@
-# 🍯 Mestej Winery Website
+# Mestej Winery - E-commerce Platform
 
-A modern, elegant website for Mestej Winery, showcasing premium honey, buckthorn, and blueberry wines with a focus on Swedish tradition and craftsmanship.
+A premium e-commerce platform for Mestej Winery, built with Next.js and following clean architecture principles.
 
-## 🚀 Features
+## 🏗️ Architecture
 
-- **Age Verification System** - Compliant alcohol access verification
-- **Multilingual Support** - English and Swedish languages
-- **Premium Design** - Black and gold theme with glass morphism effects
-- **Smooth Animations** - Powered by Framer Motion
-- **Responsive Design** - Works beautifully on all devices
-- **Product Showcase** - Interactive wine gallery with Systembolaget integration
-- **Modern Tech Stack** - Next.js 15, TypeScript, Tailwind CSS
+This project follows **Clean Architecture** principles for better maintainability, testability, and scalability.
 
-## 🛠️ Tech Stack
+### Project Structure
 
-- **Framework**: Next.js 15 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS with custom animations
-- **Animations**: Framer Motion
-- **Fonts**: Playfair Display (serif) + Inter (sans-serif)
+```
+src/
+├── app/                    # Next.js pages and routes
+├── domain/                 # Business logic (entities, interfaces)
+├── application/            # Use cases and business rules
+├── infrastructure/         # External services (database, auth)
+├── presentation/           # UI components and contexts
+└── shared/                 # Shared resources (types, constants)
+```
 
-## 🎨 Design Features
-
-- **Color Palette**: Black background, golden accents (#FFD700), white text
-- **Glass Morphism**: Translucent UI elements with backdrop blur
-- **Parallax Effects**: Mouse-tracking background elements
-- **Golden Gradients**: Animated shimmer text effects
-- **Custom Scrollbar**: Golden-themed scrollbar styling
-
-## 📱 Pages
-
-- **Home** (`/`) - Hero section, product gallery, social links
-- **About** (`/about`) - Company story and mission
-- **History** (`/history`) - Heritage and tradition
-- **Wines** (`/wines`) - Full product showcase
-- **Contact** (`/contact`) - Contact form and information
-- **Login** (`/login`) - Permit holder access (placeholder)
-- **Ordering** (`/ordering`) - Online ordering (coming soon)
-- **Webshop** (`/webshop`) - Merchandise store
+📖 **See detailed architecture documentation:**
+- [Clean Architecture Plan](./CLEAN_ARCHITECTURE_PLAN.md)
+- [Architecture Diagram](./ARCHITECTURE_DIAGRAM.md)
+- [Migration Guide](./MIGRATION_GUIDE.md)
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 18+ 
 - npm or yarn
+- Supabase account
 
 ### Installation
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
+```bash
+# Install dependencies
+npm install
 
-2. **Start development server**
-   ```bash
-   npm run dev
-   ```
+# Set up environment variables
+cp env.example .env.local
+# Edit .env.local with your Supabase credentials
 
-3. **Open your browser**
-   ```
-   http://localhost:3000
-   ```
+# Run development server
+npm run dev
+```
 
-### Build for Production
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+## 📦 Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth
+- **Animation**: Framer Motion
+- **State Management**: React Context API
+
+## 🌟 Features
+
+- ✅ Multi-language support (English, Swedish)
+- ✅ Product catalog with filtering
+- ✅ Shopping cart functionality
+- ✅ Admin dashboard
+- ✅ Age verification
+- ✅ Responsive design
+- ✅ Clean architecture implementation
+
+## 📁 Important Directories
+
+### `/src/app` - Pages
+Next.js app router pages. **Do not modify** the fundamental route structure.
+
+### `/src/presentation` - UI Layer
+All React components, organized by:
+- `common/` - Shared components (Navigation, Cart, etc.)
+- `features/` - Feature-specific components
+- `admin/` - Admin-only components
+- `contexts/` - React contexts for state management
+
+### `/src/infrastructure` - Services
+External integrations:
+- `services/database/` - Supabase database operations
+- `services/auth/` - Authentication services
+
+### `/src/shared` - Shared Resources
+- `types/` - TypeScript type definitions
+- `locales/` - i18n translation files
+- `constants/` - Application constants
+
+### `/docs` - Documentation
+All project documentation and planning files.
+
+## 🔧 Development
+
+### Adding a New Feature
+
+1. **Create component** in `/src/presentation/components/features/`
+2. **Add types** in `/src/shared/types/`
+3. **Add translations** in `/src/shared/locales/`
+4. **Add use case** (if needed) in `/src/application/use-cases/`
+5. **Create page** in `/src/app/[locale]/`
+
+### Import Conventions
+
+```typescript
+// Components
+import { Navigation } from '@/presentation/components/common';
+
+// Types
+import type { Product } from '@/shared/types';
+
+// Services
+import { fetchProducts } from '@/infrastructure/services/database/products';
+
+// Constants
+import { content } from '@/shared/constants/content';
+```
+
+### Path Aliases
+
+The following aliases are configured:
+- `@/*` - src directory
+- `@/presentation/*` - presentation layer
+- `@/infrastructure/*` - infrastructure layer
+- `@/shared/*` - shared resources
+- `@/domain/*` - domain layer
+- `@/application/*` - application layer
+
+## 🧪 Testing
 
 ```bash
-npm run build
-npm start
+# Run tests (when implemented)
+npm test
+
+# Type checking
+npm run type-check
 ```
 
-## 🌐 Deployment
+## 📝 Scripts
 
-The project is ready for deployment on:
-- **Vercel** (recommended for Next.js)
-- **Netlify**
-- **Any Node.js hosting provider**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `./scripts/update-imports.sh` - Update import paths (if needed)
 
-## 📁 Project Structure
+## 🌐 Internationalization
 
-```
-mestej-v1/
-├── src/
-│   ├── app/                 # Next.js App Router pages
-│   ├── components/          # Reusable React components
-│   ├── lib/                 # Utilities and content
-│   ├── types/              # TypeScript type definitions
-│   └── assets/             # Images and static assets
-├── public/                 # Static files
-├── tailwind.config.js      # Tailwind CSS configuration
-└── next.config.js         # Next.js configuration
-```
+The application supports multiple languages:
+- English (en)
+- Swedish (sv)
 
-## 🎯 Key Components
+Add new languages by:
+1. Creating `/src/shared/locales/[lang].json`
+2. Adding language config in `/src/shared/constants/content.ts`
 
-- **AgeGate** - Age verification modal
-- **Navigation** - Responsive navigation with language switcher
-- **HeroSection** - Animated landing section
-- **ProductGallery** - Interactive wine showcase
-- **Layout** - Main application wrapper with background
+## 🔐 Environment Variables
 
-## 🌍 Multilingual Support
-
-The website supports:
-- 🇺🇸 **English** (default)
-- 🇸🇪 **Swedish**
-
-Language selection is persistent and stored in localStorage.
-
-## 🍷 Product Integration
-
-- **Systembolaget Links** - Direct links to purchase wines
-- **Restaurant Availability** - Shows where wines are available
-- **Interactive Cards** - Expandable product information
-
-## 📞 Contact & Social
-
-- **Contact Form** - Functional contact form with validation
-- **Social Media** - Instagram and TikTok integration
-- **Company Information** - Business details and location
-
-## 🔧 Customization
-
-### Colors
-Modify colors in `tailwind.config.js`:
-```javascript
-theme: {
-  extend: {
-    colors: {
-      'gold': '#FFD700',
-      'warm-gold': '#F4D03F',
-      'dark-gold': '#B8860B',
-    }
-  }
-}
+Required environment variables (see `env.example`):
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 ```
 
-### Content
-Update content in `src/lib/content.ts` for both languages.
+## 📚 Documentation
 
-### Background Image
-Replace `/public/assets/mestej.jpeg` with your own image.
+- [Clean Architecture Plan](./CLEAN_ARCHITECTURE_PLAN.md) - Detailed architecture
+- [Migration Guide](./MIGRATION_GUIDE.md) - How to adapt to new structure
+- [Architecture Diagram](./ARCHITECTURE_DIAGRAM.md) - Visual representation
+- [Design System](./docs/DESIGN_SYSTEM.md) - UI/UX guidelines
 
-## 📝 License
+## 🤝 Contributing
 
-© 2025 Mestej Winery. All rights reserved.
+1. Follow the clean architecture principles
+2. Place files in appropriate layers
+3. Use barrel exports for components
+4. Add proper TypeScript types
+5. Update translations for new text
+
+## 📄 License
+
+[Your License Here]
+
+## 👥 Team
+
+Built by the Mestej Winery development team.
 
 ---
 
-**Built with ❤️ for premium Swedish wine craftsmanship**
+**Note**: This project has been recently refactored to follow clean architecture principles. All import paths have been updated automatically. See [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) for details.

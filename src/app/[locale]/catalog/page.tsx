@@ -2,12 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
-import { useCart } from '@/contexts/CartContext';
-import { content } from '@/lib/content';
-import UserStatusMessage from '@/components/UserStatusMessage';
-import type { ProductWithPrice } from '@/lib/supabase/products';
+import { useCart } from '@/presentation/contexts/CartContext';
+import { content } from '@/shared/constants/content';
+import type { ProductWithPrice } from '@/infrastructure/services/database/products';
 
 const PRODUCTS_PER_PAGE = 12;
 
@@ -19,7 +16,7 @@ async function getFetchProducts() {
     return null;
   }
   if (!fetchProductsFn) {
-    const module = await import('@/lib/supabase/products');
+    const module = await import('@/infrastructure/services/database/products');
     fetchProductsFn = module.fetchProducts;
   }
   return fetchProductsFn;
@@ -38,12 +35,7 @@ export default function CatalogPage({ params }: CatalogPageProps) {
   const [error, setError] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<'all' | 'wine' | 'liquor' | 'merchandise'>('all');
   const [productsLoaded, setProductsLoaded] = useState(false);
-  const { user, profile, loading: authLoading } = useAuth();
-  const router = useRouter();
-  
-  // Always call useCart hook unconditionally (hooks must be called at top level)
-  const cart = useCart();
-  const { addItem, getItemQuantity, updateQuantity } = cart;
+  const { addItem, getItemQuantity, updateQuantity } = useCart();
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
@@ -59,26 +51,12 @@ export default function CatalogPage({ params }: CatalogPageProps) {
   }, [params]);
 
   useEffect(() => {
-    console.log('🔍 Catalog auth check:', { 
-      authLoading, 
-      hasUser: !!user, 
-      userEmail: user?.email,
-      hasProfile: !!profile,
-      profileStatus: profile?.status,
-      productsLoaded
-    });
-
-    if (authLoading) {
-      console.log('⏳ Still loading auth...');
-      return;
-    }
-
-    // Load products regardless of auth status (catalog is public)
+    // Load products on mount (no auth required)
     if (!productsLoaded) {
-      console.log('📦 Loading products for catalog...');
       loadProducts();
     }
-  }, [authLoading, productsLoaded]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Filter products when filter changes
   useEffect(() => {
@@ -101,12 +79,12 @@ export default function CatalogPage({ params }: CatalogPageProps) {
       setLoading(true);
       setError(null);
       console.log('📦 Fetching all products (one-time fetch)...');
-      
+
       const fetchProducts = await getFetchProducts();
       if (!fetchProducts) {
         throw new Error('Failed to load products module');
       }
-      
+
       // Fetch ALL products (wines, liquors, merchandise)
       // This happens ONCE and then we filter/paginate in memory
       const wineProducts = await fetchProducts('wine');
@@ -115,7 +93,7 @@ export default function CatalogPage({ params }: CatalogPageProps) {
       console.log('✅ Liquor products:', liquorProducts.length);
       const merchProducts = await fetchProducts('merchandise');
       console.log('✅ Merchandise:', merchProducts.length);
-      
+
       const fetchedProducts = [...wineProducts, ...liquorProducts, ...merchProducts];
       console.log('✅ Total products:', fetchedProducts.length);
       setAllProducts(fetchedProducts);
@@ -168,11 +146,6 @@ export default function CatalogPage({ params }: CatalogPageProps) {
         onUpdate(0);
       }
     };
-
-    // Only show cart controls if user is authenticated and approved
-    if (!user || !profile || profile.status !== 'approved') {
-      return null;
-    }
 
     if (quantity === 0) {
       return (
@@ -247,11 +220,6 @@ export default function CatalogPage({ params }: CatalogPageProps) {
           <p className="text-xl text-white/80">
             Browse our complete collection of wines, liquors, and merchandise
           </p>
-          {!user && (
-            <p className="text-white/60 text-sm mt-4">
-              🔐 Login to add products to cart and place orders
-            </p>
-          )}
         </motion.div>
 
         {/* Filter Buttons */}
@@ -267,11 +235,10 @@ export default function CatalogPage({ params }: CatalogPageProps) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedType(type)}
-              className={`px-6 py-2 rounded-lg transition-all duration-300 ${
-                selectedType === type
+              className={`px-6 py-2 rounded-lg transition-all duration-300 ${selectedType === type
                   ? 'bg-gradient-to-r from-gold to-warm-gold text-black font-semibold'
                   : 'glass border border-gold/30 text-white hover:text-gold'
-              }`}
+                }`}
             >
               {type.charAt(0).toUpperCase() + type.slice(1)}
             </motion.button>
@@ -348,7 +315,7 @@ export default function CatalogPage({ params }: CatalogPageProps) {
                     <h3 className="text-xl font-serif font-bold golden-text mb-2">
                       {product.name}
                     </h3>
-                    
+
                     {product.description && (
                       <p className="text-white/70 text-sm mb-4 line-clamp-2">
                         {product.description}
@@ -375,10 +342,10 @@ export default function CatalogPage({ params }: CatalogPageProps) {
                           <span className="text-white/60 text-sm">Price on request</span>
                         )}
                       </div>
-                      
+
                       {product.price && (
-                        <ProductCartControls 
-                          product={product} 
+                        <ProductCartControls
+                          product={product}
                           quantity={getItemQuantity(product.id)}
                           onAdd={() => addItem(product, 1)}
                           onUpdate={(qty) => updateQuantity(product.id, qty)}
@@ -415,12 +382,12 @@ export default function CatalogPage({ params }: CatalogPageProps) {
                 <div className="flex gap-2">
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
                     // Show first page, last page, current page, and pages around current
-                    const showPage = 
-                      page === 1 || 
-                      page === totalPages || 
+                    const showPage =
+                      page === 1 ||
+                      page === totalPages ||
                       Math.abs(page - currentPage) <= 1;
-                    
-                    const showEllipsis = 
+
+                    const showEllipsis =
                       (page === 2 && currentPage > 3) ||
                       (page === totalPages - 1 && currentPage < totalPages - 2);
 
@@ -440,11 +407,10 @@ export default function CatalogPage({ params }: CatalogPageProps) {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handlePageChange(page)}
-                        className={`px-4 py-2 rounded-lg transition-all ${
-                          currentPage === page
+                        className={`px-4 py-2 rounded-lg transition-all ${currentPage === page
                             ? 'bg-gradient-to-r from-gold to-warm-gold text-black font-semibold'
                             : 'glass border border-gold/30 text-white hover:text-gold'
-                        }`}
+                          }`}
                       >
                         {page}
                       </motion.button>

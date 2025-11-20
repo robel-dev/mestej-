@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useAdminAuth } from '@/contexts/AdminAuthContext';
-import AdminSidebar from '@/components/admin/AdminSidebar';
-import AdminHeader from '@/components/admin/AdminHeader';
-import { fetchAllProducts, deleteProduct, type ProductWithPrice } from '@/lib/supabase/adminProducts';
+import { useAdminAuth } from '@/presentation/contexts/AdminAuthContext';
+import AdminSidebar from '@/presentation/components/admin/AdminSidebar';
+import AdminHeader from '@/presentation/components/admin/AdminHeader';
+import { fetchAllProducts, deleteProduct, type ProductWithPrice } from '@/infrastructure/services/database/adminProducts';
 
 export default function AdminProductsPage() {
   const { user, profile, loading: authLoading } = useAdminAuth();
