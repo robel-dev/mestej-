@@ -18,8 +18,8 @@ export const getMenuItems = (locale: string): MenuItemType[] => [
 ];
 
 export const content: Record<'en' | 'sv', SiteContent> = {
-  en: enContent as SiteContent,
-  sv: svContent as SiteContent,
+  en: enContent as unknown as SiteContent,
+  sv: svContent as unknown as SiteContent,
 };
 
 export const products: Product[] = [

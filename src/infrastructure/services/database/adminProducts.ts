@@ -17,7 +17,7 @@ export interface ProductWithPrice extends Product {
  */
 export async function fetchAllProducts(): Promise<ProductWithPrice[]> {
   try {
-    const supabase = createClient();
+    const supabase = createClient() as any;
     
     // Fetch all products
     const { data: products, error: productsError } = await supabase
@@ -38,7 +38,7 @@ export async function fetchAllProducts(): Promise<ProductWithPrice[]> {
     const { data: prices, error: pricesError } = await supabase
       .from('product_prices')
       .select('*')
-      .in('product_id', products.map(p => p.id))
+      .in('product_id', products.map((p: Product) => p.id))
       .is('valid_to', null)
       .order('valid_from', { ascending: false });
     
@@ -48,8 +48,8 @@ export async function fetchAllProducts(): Promise<ProductWithPrice[]> {
     }
     
     // Merge products with their prices
-    const productsWithPrices: ProductWithPrice[] = products.map(product => {
-      const price = prices?.find(p => p.product_id === product.id);
+    const productsWithPrices: ProductWithPrice[] = products.map((product: Product) => {
+      const price = prices?.find((p: ProductPrice) => p.product_id === product.id);
       return {
         ...product,
         price: price?.price || null,
@@ -69,7 +69,7 @@ export async function fetchAllProducts(): Promise<ProductWithPrice[]> {
  */
 export async function fetchProductById(productId: string): Promise<ProductWithPrice | null> {
   try {
-    const supabase = createClient();
+    const supabase = createClient() as any;
     
     // Fetch product
     const { data: product, error: productError } = await supabase
@@ -86,6 +86,7 @@ export async function fetchProductById(productId: string): Promise<ProductWithPr
     if (!product) {
       return null;
     }
+    const typedProduct = product as Product;
     
     // Fetch current price
     const { data: price, error: priceError } = await supabase
@@ -96,15 +97,16 @@ export async function fetchProductById(productId: string): Promise<ProductWithPr
       .order('valid_from', { ascending: false })
       .limit(1)
       .maybeSingle();
+    const typedPrice = price as ProductPrice | null;
     
     if (priceError) {
       console.error('Error fetching price:', priceError);
     }
     
     return {
-      ...product,
-      price: price?.price || null,
-      currency: price?.currency || 'SEK',
+      ...typedProduct,
+      price: typedPrice?.price || null,
+      currency: typedPrice?.currency || 'SEK',
     };
   } catch (error) {
     console.error('Exception in fetchProductById:', error);
@@ -132,22 +134,23 @@ export async function createProduct(
   currency: string = 'SEK'
 ): Promise<{ product: Product; success: boolean; error?: string }> {
   try {
-    const supabase = createClient();
+    const supabase = createClient() as any;
     
     // Insert product
+    const newProduct: ProductInsert = {
+      name: productData.name,
+      description: productData.description,
+      product_type: productData.product_type,
+      supplier_id: productData.supplier_id,
+      image_url: productData.image_url,
+      abv: productData.abv,
+      volume_ml: productData.volume_ml,
+      stock_quantity: productData.stock_quantity || 0,
+      availability: productData.availability || 'in_stock',
+    };
     const { data: product, error: productError } = await supabase
       .from('products')
-      .insert({
-        name: productData.name,
-        description: productData.description,
-        product_type: productData.product_type,
-        supplier_id: productData.supplier_id,
-        image_url: productData.image_url,
-        abv: productData.abv,
-        volume_ml: productData.volume_ml,
-        stock_quantity: productData.stock_quantity || 0,
-        availability: productData.availability || 'in_stock',
-      })
+      .insert(newProduct)
       .select()
       .single();
     
@@ -207,7 +210,7 @@ export async function updateProduct(
   currency: string = 'SEK'
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const supabase = createClient();
+    const supabase = createClient() as any;
     
     // Update product
     const { error: productError } = await supabase
@@ -278,7 +281,7 @@ export async function deleteProduct(
   hardDelete: boolean = false
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const supabase = createClient();
+    const supabase = createClient() as any;
     
     if (hardDelete) {
       // Hard delete - actually remove from database
@@ -328,7 +331,7 @@ export async function deleteProduct(
  */
 export async function fetchSuppliers() {
   try {
-    const supabase = createClient();
+    const supabase = createClient() as any;
     
     const { data, error } = await supabase
       .from('suppliers')
@@ -346,4 +349,3 @@ export async function fetchSuppliers() {
     throw error;
   }
 }
-

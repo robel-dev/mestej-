@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { products } from '@/shared/constants/content';
 import { content } from '@/shared/constants/content';
@@ -11,6 +12,7 @@ interface ProductGalleryProps {
 }
 
 export default function ProductGallery({ language }: ProductGalleryProps) {
+  const router = useRouter();
   const [selectedProduct, setSelectedProduct] = useState<number | null>(null);
   const siteContent = content[language];
 
@@ -82,7 +84,18 @@ export default function ProductGallery({ language }: ProductGalleryProps) {
           {products.map((product, index) => {
             const productStyle = productTypes[product.type];
             return (
-              <Link key={index} href={`/${language}/products`}>
+              <div
+                key={index}
+                role="button"
+                tabIndex={0}
+                onClick={() => router.push(`/${language}/products`)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    router.push(`/${language}/products`);
+                  }
+                }}
+              >
                 <motion.div
                   variants={cardVariants}
                   whileHover={{ y: -10 }}
@@ -148,6 +161,7 @@ export default function ProductGallery({ language }: ProductGalleryProps) {
                           href={product.systembolaget_link}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={(event) => event.stopPropagation()}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           className="inline-flex items-center space-x-2 px-4 py-2 rounded-lg bg-gradient-to-r from-gold to-warm-gold text-black text-sm font-medium transition-all duration-300 hover:shadow-lg hover:shadow-gold/30"
@@ -169,7 +183,7 @@ export default function ProductGallery({ language }: ProductGalleryProps) {
                     transition={{ duration: 0.3 }}
                   />
                 </motion.div>
-              </Link>
+              </div>
             );
           })}
         </motion.div>

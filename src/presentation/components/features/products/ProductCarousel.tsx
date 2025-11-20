@@ -28,17 +28,17 @@ export default function ProductCarousel({ language }: ProductCarouselProps) {
 
   const productTypes = {
     honey: {
-      // color: 'from-amber-400 to-yellow-600',
+      color: 'from-amber-400 to-yellow-600',
       label: 'Honey Mead',
       templateImage: '/images/honey-wine.jpeg'
     },
     buckthorn: {
-      // color: 'from-orange-400 to-red-600',
+      color: 'from-orange-400 to-red-600',
       label: 'Buckthorn Wine',
       templateImage: '/images/buckthorn.jpeg'
     },
     blueberry: {
-      // color: 'from-blue-400 to-purple-600',
+      color: 'from-blue-400 to-purple-600',
       label: 'Blueberry Reserve',
       templateImage: '/images/blueberry.jpeg'
     },

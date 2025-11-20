@@ -9,6 +9,7 @@ export interface AdminProfile {
   role: 'user' | 'admin';
   status: 'pending' | 'approved' | 'rejected' | 'blocked';
 }
+type UserRow = Database['public']['Tables']['users']['Row'];
 
 /**
  * Check if the current user is an admin
@@ -16,7 +17,6 @@ export interface AdminProfile {
 export async function isAdmin(): Promise<boolean> {
   try {
     const supabase = createClient();
-    type UserRoleRow = Pick<Database['public']['Tables']['users']['Row'], 'role'>;
     
     // Get current user
     const { data: { user }, error } = await supabase.auth.getUser();
@@ -36,7 +36,7 @@ export async function isAdmin(): Promise<boolean> {
       return false;
     }
     
-    return (profile as UserRoleRow).role === 'admin';
+    return (profile as UserRow).role === 'admin';
   } catch (error) {
     console.error('Error checking admin status:', error);
     return false;
@@ -62,18 +62,19 @@ export async function getAdminProfile(): Promise<AdminProfile | null> {
       .from('users')
       .select('*')
       .eq('id', user.id)
-      .single();
+      .single<UserRow>();
     
     if (profileError || !profile) {
       return null;
     }
     
     // Verify user is an admin
-    if (profile.role !== 'admin') {
+    const typedProfile = profile as UserRow;
+    if (typedProfile.role !== 'admin') {
       return null;
     }
     
-    return profile as AdminProfile;
+    return typedProfile as AdminProfile;
   } catch (error) {
     console.error('Error fetching admin profile:', error);
     return null;
@@ -106,7 +107,7 @@ export async function adminSignIn(email: string, password: string): Promise<{
       .from('users')
       .select('role')
       .eq('id', data.user.id)
-      .single();
+      .single<UserRow>();
     
     if (profileError || !profile) {
       // Sign out if profile fetch fails
@@ -119,7 +120,8 @@ export async function adminSignIn(email: string, password: string): Promise<{
     }
     
     // Check if user is admin
-    if (profile.role !== 'admin') {
+    const typedProfile = profile as UserRow;
+    if (typedProfile.role !== 'admin') {
       // Sign out if not admin
       await supabase.auth.signOut();
       return { 

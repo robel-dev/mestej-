@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/infrastructure/services/database/client';
+import type { Database } from '@/infrastructure/services/database/database.types';
 import type { User } from '@supabase/supabase-js';
 
 interface AdminProfile {
@@ -79,7 +80,9 @@ export function AdminAuthProvider({ children }: AdminAuthProviderProps) {
           return;
         }
 
-        if (data.role !== 'admin') {
+        const profileData = data as Database['public']['Tables']['users']['Row'];
+
+        if (profileData.role !== 'admin') {
           console.error('❌ User is not an admin');
           setProfile(null);
           setLoading(false);
@@ -90,8 +93,8 @@ export function AdminAuthProvider({ children }: AdminAuthProviderProps) {
           return;
         }
 
-        console.log('✅ Admin profile loaded:', data.email);
-        setProfile(data as AdminProfile);
+        console.log('✅ Admin profile loaded:', profileData.email);
+        setProfile(profileData as AdminProfile);
         setLoading(false);
         setProfileLoading(false);
       } catch (error) {
@@ -175,8 +178,10 @@ export function AdminAuthProvider({ children }: AdminAuthProviderProps) {
           .eq('id', user.id)
           .single();
 
-        if (!error && data && data.role === 'admin') {
-          setProfile(data as AdminProfile);
+        const profileData = data as Database['public']['Tables']['users']['Row'] | null;
+
+        if (!error && profileData && profileData.role === 'admin') {
+          setProfile(profileData as AdminProfile);
         }
       } catch (error) {
         console.error('Error refreshing profile:', error);
@@ -206,4 +211,3 @@ export function useAdminAuth() {
   }
   return context;
 }
-

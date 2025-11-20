@@ -4,6 +4,14 @@ import type { Database } from './database.types';
 
 type Order = Database['public']['Tables']['orders']['Row'];
 type OrderItem = Database['public']['Tables']['order_items']['Row'];
+type OrderWithUser = Order & { users: { email: string } | null };
+type OrderItemWithProduct = OrderItem & {
+  products: {
+    name: string;
+    product_type: Database['public']['Tables']['products']['Row']['product_type'];
+    image_url: string | null;
+  } | null;
+};
 
 export interface OrderWithDetails extends Order {
   items?: OrderItem[];
@@ -30,7 +38,7 @@ export async function fetchAllOrders(status?: string): Promise<OrderWithDetails[
       query = query.eq('status', status);
     }
     
-    const { data: orders, error } = await query;
+    const { data: orders, error } = await query.returns<OrderWithUser[]>();
     
     if (error) {
       console.error('Error fetching orders:', error);
@@ -47,7 +55,8 @@ export async function fetchAllOrders(status?: string): Promise<OrderWithDetails[
         const { data: items, error: itemsError } = await supabase
           .from('order_items')
           .select('*')
-          .eq('order_id', order.id);
+          .eq('order_id', order.id)
+          .returns<OrderItem[]>();
         
         if (itemsError) {
           console.error('Error fetching order items:', itemsError);
@@ -55,7 +64,7 @@ export async function fetchAllOrders(status?: string): Promise<OrderWithDetails[
         
         return {
           ...order,
-          user_email: (order.users as any)?.email,
+          user_email: order.users?.email || undefined,
           item_count: items?.length || 0,
         };
       })
@@ -83,6 +92,7 @@ export async function fetchOrderById(orderId: string): Promise<OrderWithDetails 
         users!inner(email)
       `)
       .eq('id', orderId)
+      .returns<OrderWithUser>()
       .single();
     
     if (orderError) {
@@ -93,6 +103,7 @@ export async function fetchOrderById(orderId: string): Promise<OrderWithDetails 
     if (!order) {
       return null;
     }
+    const typedOrder = order as OrderWithUser;
     
     // Fetch order items with product details
     const { data: items, error: itemsError } = await supabase
@@ -105,15 +116,16 @@ export async function fetchOrderById(orderId: string): Promise<OrderWithDetails 
           image_url
         )
       `)
-      .eq('order_id', orderId);
+      .eq('order_id', orderId)
+      .returns<OrderItemWithProduct[]>();
     
     if (itemsError) {
       console.error('Error fetching order items:', itemsError);
     }
     
     return {
-      ...order,
-      user_email: (order.users as any)?.email,
+      ...typedOrder,
+      user_email: typedOrder.users?.email || undefined,
       items: items || [],
       item_count: items?.length || 0,
     };
@@ -134,10 +146,10 @@ export async function fulfillOrder(
     const supabase = createClient();
     
     // Call the fulfill_order function
-    const { data, error } = await supabase.rpc('fulfill_order', {
+    const { data, error } = await (supabase as any).rpc('fulfill_order', {
       p_order_id: orderId,
       p_admin_id: adminId,
-    });
+    } as Database['public']['Functions']['fulfill_order']['Args']);
     
     if (error) {
       console.error('Error fulfilling order:', error);
@@ -170,11 +182,11 @@ export async function cancelOrder(
     const supabase = createClient();
     
     // Call the cancel_order function
-    const { data, error } = await supabase.rpc('cancel_order', {
+    const { data, error } = await (supabase as any).rpc('cancel_order', {
       p_order_id: orderId,
       p_admin_id: adminId,
       p_reason: reason || null,
-    });
+    } as Database['public']['Functions']['cancel_order']['Args']);
     
     if (error) {
       console.error('Error cancelling order:', error);
@@ -194,4 +206,3 @@ export async function cancelOrder(
     };
   }
 }
-

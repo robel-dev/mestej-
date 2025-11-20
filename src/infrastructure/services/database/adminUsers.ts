@@ -14,7 +14,7 @@ export interface UserWithStats extends User {
  */
 export async function fetchAllUsers(status?: 'pending' | 'approved' | 'rejected' | 'blocked'): Promise<UserWithStats[]> {
   try {
-    const supabase = createClient();
+    const supabase = createClient() as any;
     
     let query = supabase
       .from('users')
@@ -47,7 +47,7 @@ export async function approveUser(
   userId: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const supabase = createClient();
+    const supabase = createClient() as any;
     
     // Call the approve_user function
     const { data, error } = await supabase.rpc('approve_user', {
@@ -83,7 +83,7 @@ export async function rejectUser(
   reason?: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const supabase = createClient();
+    const supabase = createClient() as any;
     
     // Call the reject_user function
     const { data, error } = await supabase.rpc('reject_user', {
@@ -120,7 +120,7 @@ export async function blockUser(
   reason?: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const supabase = createClient();
+    const supabase = createClient() as any;
     
     // Call the block_user function
     const { data, error } = await supabase.rpc('block_user', {
@@ -156,7 +156,7 @@ export async function unblockUser(
   userId: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const supabase = createClient();
+    const supabase = createClient() as any;
     
     // Update user status to approved
     const { error } = await supabase
@@ -191,4 +191,3 @@ export async function unblockUser(
     };
   }
 }
-
